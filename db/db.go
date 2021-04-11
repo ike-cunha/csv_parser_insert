@@ -48,6 +48,64 @@ func createTable(db *sql.DB) {
 	fmt.Println(result.RowsAffected())
 }
 
+//Inserts the received file into the database
+func Insert(file []byte) {
+	db, err := sql.Open("postgres", CONNECTION_STRING)
+	if err != nil {
+		panic(err)
+	}
+
+	defer db.Close()
+
+	// CREATE table
+	createTable(db)
+
+	var store Store
+	data := strings.Split(string(file), "\n")[1:]
+	for _, values := range data {
+		value := strings.Fields(values)
+
+		store.CPF = value[0]
+		store.Privado = stringToBool(value[1])
+		store.Incompleto = stringToBool(value[2])
+		store.DataUltimaCompra = stringToDate(value[3])
+		store.TicketMedio = stringToFloat(value[4])
+		store.TicketUltimaCompra = stringToFloat(value[5])
+		store.LojaMaisFrequente = value[6]
+		store.LojaUltimaCompra = value[7]
+		store.Invalido = cpfCnpjValidation(store.CPF, store.LojaMaisFrequente, store.LojaUltimaCompra)
+
+		insert := `
+				INSERT INTO store(
+					cpf,
+					privado,
+					incompleto,
+					data_ultima_compra,
+					ticket_medio,
+					ticket_ultima_compra,
+					loja_mais_frequente,
+					loja_ultima_compra,
+					invalido
+				) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)`
+
+		_, err = db.Exec(insert,
+			store.CPF,
+			store.Privado,
+			store.Incompleto,
+			store.DataUltimaCompra,
+			store.TicketMedio,
+			store.TicketUltimaCompra,
+			store.LojaMaisFrequente,
+			store.LojaUltimaCompra,
+			store.Invalido,
+		)
+
+		if err != nil {
+			panic(err)
+		}
+	}
+}
+
 //Parses string to boolean
 func stringToBool(text string) bool {
 	result, err := strconv.ParseBool(text)
