@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -52,4 +53,17 @@ func stringToBool(text string) bool {
 		log.Fatal(err)
 	}
 	return result
+}
+
+//Parses string to float
+func stringToFloat(text string) float64 {
+	if text == "NULL" {
+		return 0
+	}
+
+	price, err := strconv.ParseFloat(strings.Replace(text, ",", ".", 1), 64)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return price
 }
