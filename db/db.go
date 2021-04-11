@@ -67,3 +67,16 @@ func stringToFloat(text string) float64 {
 	}
 	return price
 }
+
+//Parses string to date
+func stringToDate(date_text string) time.Time {
+	if date_text == "NULL" {
+		return time.Time{}
+	}
+
+	date, err := time.Parse("2006-01-02", date_text)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return date
+}
