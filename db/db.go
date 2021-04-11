@@ -88,9 +88,11 @@ func Insert(file []byte) {
 					loja_mais_frequente,
 					loja_ultima_compra,
 					invalido
-				) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)`
+				) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
+					RETURNING id`
 
-		_, err = db.Exec(insert,
+		var id int
+		row := db.QueryRow(insert,
 			purchase.CPF,
 			purchase.Privado,
 			purchase.Incompleto,
@@ -100,11 +102,40 @@ func Insert(file []byte) {
 			purchase.LojaMaisFrequente,
 			purchase.LojaUltimaCompra,
 			purchase.Invalido,
-		)
+		).Scan(&id)
 
-		if err != nil {
+		if row != nil {
 			panic(err)
 		}
+
+		sanitize(value, int64(id), db)
+	}
+}
+
+//Removes special characters from the cpf, loja_mais_frequente, and loja_ultima_compra columns
+func sanitize(value []string, id int64, db *sql.DB) {
+	var purchase Purchase
+
+	purchase.CPF = value[0]
+	purchase.LojaMaisFrequente = value[6]
+	purchase.LojaUltimaCompra = value[7]
+
+	update := `
+			UPDATE purchase
+			SET cpf=regexp_replace($1, '[^a-zA-Z0-9]+', '','g'),
+				loja_mais_frequente=regexp_replace($2, '[^a-zA-Z0-9]+', '','g'),
+				loja_ultima_compra=regexp_replace($3, '[^a-zA-Z0-9]+', '','g')
+			WHERE id=$4;`
+
+	_, err := db.Exec(update,
+		purchase.CPF,
+		purchase.LojaMaisFrequente,
+		purchase.LojaUltimaCompra,
+		id,
+	)
+
+	if err != nil {
+		panic(err)
 	}
 }
 
