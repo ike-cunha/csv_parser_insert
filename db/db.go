@@ -15,7 +15,7 @@ import (
 
 const CONNECTION_STRING = "user=docker password=docker dbname=neoway host=db sslmode=disable"
 
-type Store struct {
+type Purchase struct {
 	CPF                string
 	Privado            bool
 	Incompleto         bool
@@ -27,9 +27,9 @@ type Store struct {
 	Invalido           bool
 }
 
-//Creates Store table
+//Creates Purchase table
 func createTable(db *sql.DB) {
-	create := `CREATE TABLE IF NOT EXISTS "store"  (
+	create := `CREATE TABLE IF NOT EXISTS "purchase"  (
 		"id" SERIAL PRIMARY KEY,
 		"cpf" varchar(20),
 		"privado" boolean,
@@ -62,23 +62,23 @@ func Insert(file []byte) {
 	// CREATE table
 	createTable(db)
 
-	var store Store
+	var purchase Purchase
 	data := strings.Split(string(file), "\n")[1:]
 	for _, values := range data {
 		value := strings.Fields(values)
 
-		store.CPF = value[0]
-		store.Privado = stringToBool(value[1])
-		store.Incompleto = stringToBool(value[2])
-		store.DataUltimaCompra = stringToDate(value[3])
-		store.TicketMedio = stringToFloat(value[4])
-		store.TicketUltimaCompra = stringToFloat(value[5])
-		store.LojaMaisFrequente = value[6]
-		store.LojaUltimaCompra = value[7]
-		store.Invalido = cpfCnpjValidation(store.CPF, store.LojaMaisFrequente, store.LojaUltimaCompra)
+		purchase.CPF = value[0]
+		purchase.Privado = stringToBool(value[1])
+		purchase.Incompleto = stringToBool(value[2])
+		purchase.DataUltimaCompra = stringToDate(value[3])
+		purchase.TicketMedio = stringToFloat(value[4])
+		purchase.TicketUltimaCompra = stringToFloat(value[5])
+		purchase.LojaMaisFrequente = value[6]
+		purchase.LojaUltimaCompra = value[7]
+		purchase.Invalido = cpfCnpjValidation(purchase.CPF, purchase.LojaMaisFrequente, purchase.LojaUltimaCompra)
 
 		insert := `
-				INSERT INTO store(
+				INSERT INTO purchase(
 					cpf,
 					privado,
 					incompleto,
@@ -91,15 +91,15 @@ func Insert(file []byte) {
 				) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)`
 
 		_, err = db.Exec(insert,
-			store.CPF,
-			store.Privado,
-			store.Incompleto,
-			store.DataUltimaCompra,
-			store.TicketMedio,
-			store.TicketUltimaCompra,
-			store.LojaMaisFrequente,
-			store.LojaUltimaCompra,
-			store.Invalido,
+			purchase.CPF,
+			purchase.Privado,
+			purchase.Incompleto,
+			purchase.DataUltimaCompra,
+			purchase.TicketMedio,
+			purchase.TicketUltimaCompra,
+			purchase.LojaMaisFrequente,
+			purchase.LojaUltimaCompra,
+			purchase.Invalido,
 		)
 
 		if err != nil {
