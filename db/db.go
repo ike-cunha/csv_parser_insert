@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/klassmann/cpfcnpj"
 )
 
 const CONNECTION_STRING = "user=docker password=docker dbname=neoway host=db sslmode=disable"
@@ -79,4 +81,17 @@ func stringToDate(date_text string) time.Time {
 		log.Fatal(err)
 	}
 	return date
+}
+
+//Validates registration numbers: CPF and CNPJ
+func cpfCnpjValidation(cpf string, cnpjFrequente string, cnpjUltimaCompra string) bool {
+	if cpf == "NULL" || cnpjFrequente == "NULL" || cnpjUltimaCompra == "NULL" {
+		return true
+	}
+
+	cpfIsValid := cpfcnpj.ValidateCPF(cpf)
+	cnpjFrequenteIsValid := cpfcnpj.ValidateCNPJ(cnpjFrequente)
+	cnpjUltimaCompraIsValid := cpfcnpj.ValidateCNPJ(cnpjUltimaCompra)
+
+	return cpfIsValid && cnpjFrequenteIsValid && cnpjUltimaCompraIsValid
 }
