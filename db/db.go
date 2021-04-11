@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"strconv"
 	"time"
 )
 
@@ -42,4 +43,13 @@ func createTable(db *sql.DB) {
 	}
 
 	fmt.Println(result.RowsAffected())
+}
+
+//Parses string to boolean
+func stringToBool(text string) bool {
+	result, err := strconv.ParseBool(text)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return result
 }
