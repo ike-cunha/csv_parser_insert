@@ -1,3 +1,5 @@
+// Package db provides a database instance, a table struct
+//and some CRUD func.
 package db
 
 import (
