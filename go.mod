@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/klassmann/cpfcnpj v0.0.0-20200907140233-a595c5fd8de1 // indirect
+	github.com/lib/pq v1.10.0 // indirect
 	github.com/yuin/goldmark v1.3.4 // indirect
 	golang.org/x/mod v0.4.2 // indirect
 	golang.org/x/net v0.0.0-20210410081132-afb366fc7cd1 // indirect

@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  web:
+    build: .
+    ports:
+        - "8080:8080"
+    command: go build
+    depends_on: 
+      - db
+    volumes:
+      - .:/app
+  db:
+    image: postgres:12
+    restart: unless-stopped
+    ports:
+        - "5432:5432"
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: neoway 
+  

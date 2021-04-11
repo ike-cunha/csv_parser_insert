@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/ike-cunha/csv-parser-insert/db"
+	_ "github.com/lib/pq"
 )
 
 const PORT = ":8080"

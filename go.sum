@@ -1,5 +1,7 @@
 github.com/klassmann/cpfcnpj v0.0.0-20200907140233-a595c5fd8de1 h1:nT1t/3YnkjBWdVl6zmvmim6S8gjAZOpZi19iEBq3/Ko=
 github.com/klassmann/cpfcnpj v0.0.0-20200907140233-a595c5fd8de1/go.mod h1:2lGFirXS+qsYDFtk4OAzWXyILL3mrSAluEH26Ao65ZY=
+github.com/lib/pq v1.10.0 h1:Zx5DJFEYQXio93kgXnQ09fXNiUKsqv4OUEu2UtGcB1E=
+github.com/lib/pq v1.10.0/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
 github.com/yuin/goldmark v1.2.1/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.3.4 h1:pd9FbZYGoTk0XaRHfu9oRrAiD8F5/MVZ1aMgLK2+S/w=
 github.com/yuin/goldmark v1.3.4/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1Zlc8k=
