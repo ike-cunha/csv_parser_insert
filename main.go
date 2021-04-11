@@ -2,9 +2,12 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
+
+	"github.com/ike-cunha/csv-parser-insert/db"
 )
 
 const PORT = ":8080"
@@ -40,6 +43,13 @@ func sendFile(w http.ResponseWriter, r *http.Request) {
 
 	defer file.Close()
 
-	// alterar response para o usuário, pode ser usado: w.Write([]byte("essa rota somente aceita chamadas post"))
+	content, err := ioutil.ReadAll(file)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// insert data in postgres
+	go db.Insert(content)
+
 	fmt.Fprintf(w, "Uploaded File: %s", handler.Filename)
 }
