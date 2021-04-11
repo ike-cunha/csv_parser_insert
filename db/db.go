@@ -16,15 +16,15 @@ import (
 const CONNECTION_STRING = "user=docker password=docker dbname=neoway host=db sslmode=disable"
 
 type Purchase struct {
-	CPF                string
-	Privado            bool
-	Incompleto         bool
-	DataUltimaCompra   time.Time
-	TicketMedio        float64
-	TicketUltimaCompra float64
-	LojaMaisFrequente  string
-	LojaUltimaCompra   string
-	Invalido           bool
+	CPF                      string
+	Privado                  bool
+	Incompleto               bool
+	DataUltimaCompra         time.Time
+	TicketMedio              float64
+	TicketUltimaCompra       float64
+	LojaMaisFrequente        string
+	LojaUltimaCompra         string
+	DadosCadastraisInvalidos bool
 }
 
 //Creates Purchase table
@@ -39,7 +39,7 @@ func createTable(db *sql.DB) {
 		"ticket_ultima_compra" decimal,
 		"loja_mais_frequente" varchar(20),
 		"loja_ultima_compra" varchar(20),
-		"invalido" boolean
+		"dados_cadastrais_invalidos" boolean
 	  );`
 
 	result, err := db.Exec(create)
@@ -75,7 +75,7 @@ func Insert(file []byte) {
 		purchase.TicketUltimaCompra = stringToFloat(value[5])
 		purchase.LojaMaisFrequente = value[6]
 		purchase.LojaUltimaCompra = value[7]
-		purchase.Invalido = cpfCnpjValidation(purchase.CPF, purchase.LojaMaisFrequente, purchase.LojaUltimaCompra)
+		purchase.DadosCadastraisInvalidos = cpfCnpjValidation(purchase.CPF, purchase.LojaMaisFrequente, purchase.LojaUltimaCompra)
 
 		insert := `
 				INSERT INTO purchase(
@@ -87,7 +87,7 @@ func Insert(file []byte) {
 					ticket_ultima_compra,
 					loja_mais_frequente,
 					loja_ultima_compra,
-					invalido
+					dados_cadastrais_invalidos
 				) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
 					RETURNING id`
 
@@ -101,7 +101,7 @@ func Insert(file []byte) {
 			purchase.TicketUltimaCompra,
 			purchase.LojaMaisFrequente,
 			purchase.LojaUltimaCompra,
-			purchase.Invalido,
+			purchase.DadosCadastraisInvalidos,
 		).Scan(&id)
 
 		if row != nil {
