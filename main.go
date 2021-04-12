@@ -49,7 +49,7 @@ func sendFile(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
-	// insert data in postgres
+	//Insert data in postgres
 	go db.Insert(content)
 
 	fmt.Fprintf(w, "Uploaded file %s with success. Data is being processed.", handler.Filename)

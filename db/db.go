@@ -24,7 +24,7 @@ type Purchase struct {
 	TicketUltimaCompra       float64
 	LojaMaisFrequente        string
 	LojaUltimaCompra         string
-	DadosCadastraisInvalidos bool
+	DadosCadastraisInvalidos bool //When either cpf or cnpj aren't valid or any of them is null
 }
 
 //Creates Purchase table

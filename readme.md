@@ -5,8 +5,11 @@
  <a href="#objetivo">Objetivo</a> •
  <a href="#funcionalidades">Funcionalidades</a> •
  <a href="#pré-requisitos">Pré-requisitos</a> •
+ <a href="#para iniciar">Para iniciar</a> •
+ <a href="#para rodar">Para rodar</a> •
+ <a href="#para visualizar">Para visualizar</a> •
+ <a href="#documentação">Documentacao</a> •
  <a href="#tecnologias">Tecnologias</a> •
- <a href="#going Further">Tecnologias</a> • 
  <a href="#autor">Autor</a>
 </p>
 
@@ -22,15 +25,15 @@ Manipular e persistir dados em base de dados relacional.
 
 - [x] API p/ envio de arquivo
 - [x] Parse dos dados
-- [X] Persistência dos dados no DB
-- [X] Higienização da base
+- [x] Persistência dos dados no DB
+- [x] Higienização da base
 
 ### Pré-requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Docker](https://www.docker.com), [Golang](https://golang.org).
 
-### 🎲 Para Rodar a aplicação
+### Para iniciar
 
 ```bash
 # Clone este repositório
@@ -50,6 +53,32 @@ $ ./csv_parser_insert
 
 # O servidor inciará na porta:8080 - acesse <http://localhost:8080>
 ```
+
+### Para rodar 🏃‍♀️
+
+- Em sua ferramenta para realização de preferência, crie uma requisição `POST`.
+- No campo URL da requisição insira `http://localhost:8080/send-file`
+- A estrutura da requisição será Multipart Form
+- A chave será `data` e o valor <a href="https://drive.google.com/file/d/1xofC3dTpO-ZCuyYCpTvzqQ1O6GPZx58M/view?usp=sharing">este arquivo</a>
+
+`IMAGEM DE REFERÊNCIA`
+<img src="https://cdn.discordapp.com/attachments/641368214730702911/830953099547115520/unknown.png" alt=""/>
+
+### Para visualizar
+
+A aplicação conta com uma instância do banco Postgresql
+Para acessar:
+- Conecte-se ao Host `localhost`
+- Na porta `5432`
+- Com o usuario `docker` e a senha `docker`
+- A base padrão chama-se `Neoway` e a tabela que recebe os dados `purchase`
+
+### Documentação 📚
+
+O código possui comentário em todos os seus métodos.
+Caso necessite de uma interface gráfica, pode utilizar o [Godoc](https://blog.golang.org/godoc).
+
+Com ele instalado, basta rodar o comando `godoc -http=localhost:6060` no terminal, e acessar `localhost:6060` em seu navegador.
 
 ### Tecnologias 💻
 
