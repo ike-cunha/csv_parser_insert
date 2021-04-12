@@ -5,9 +5,9 @@
  <a href="#objetivo">Objetivo</a> •
  <a href="#funcionalidades">Funcionalidades</a> •
  <a href="#pré-requisitos">Pré-requisitos</a> •
- <a href="#para iniciar">Para iniciar</a> •
- <a href="#para rodar">Para rodar</a> •
- <a href="#para visualizar">Para visualizar</a> •
+ <a href="#para-iniciar">Para iniciar</a> •
+ <a href="#para-rodar">Para rodar</a> •
+ <a href="#para-visualizar">Para visualizar</a> •
  <a href="#documentação">Documentacao</a> •
  <a href="#tecnologias">Tecnologias</a> •
  <a href="#autor">Autor</a>
@@ -21,7 +21,8 @@
 
 Manipular e persistir dados em base de dados relacional.
 
-### Funcionalidades 🛠️
+### Funcionalidades
+🛠️
 
 - [x] API p/ envio de arquivo
 - [x] Parse dos dados
@@ -54,7 +55,8 @@ $ ./csv_parser_insert
 # O servidor inciará na porta:8080 - acesse <http://localhost:8080>
 ```
 
-### Para rodar 🏃‍♀️
+### Para rodar
+🏃‍♀️
 
 - Em sua ferramenta para realização de preferência, crie uma requisição `POST`.
 - No campo URL da requisição insira `http://localhost:8080/send-file`
@@ -73,14 +75,16 @@ Para acessar:
 - Com o usuario `docker` e a senha `docker`
 - A base padrão chama-se `Neoway` e a tabela que recebe os dados `purchase`
 
-### Documentação 📚
+### Documentação
+📚
 
 O código possui comentário em todos os seus métodos.
 Caso necessite de uma interface gráfica, pode utilizar o [Godoc](https://blog.golang.org/godoc).
 
 Com ele instalado, basta rodar o comando `godoc -http=localhost:6060` no terminal, e acessar `localhost:6060` em seu navegador.
 
-### Tecnologias 💻
+### Tecnologias
+💻
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
