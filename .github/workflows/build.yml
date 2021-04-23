@@ -9,3 +9,4 @@ jobs:
       - run: echo "Hello World!!!"
       - run: go build
       - run: echo "Compilado"
+      - run: aws sts get-caller-identity
