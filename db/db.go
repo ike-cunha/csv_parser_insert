@@ -14,6 +14,7 @@ import (
 )
 
 const CONNECTION_STRING = "user=docker password=docker dbname=neoway host=db sslmode=disable"
+const NULO = "NULL"
 
 type Purchase struct {
 	CPF                      string
@@ -150,7 +151,7 @@ func stringToBool(text string) bool {
 
 //Parses string to float
 func stringToFloat(text string) float64 {
-	if text == "NULL" {
+	if text == NULO {
 		return 0
 	}
 
@@ -163,7 +164,7 @@ func stringToFloat(text string) float64 {
 
 //Parses string to date
 func stringToDate(date_text string) time.Time {
-	if date_text == "NULL" {
+	if date_text == NULO {
 		return time.Time{}
 	}
 
@@ -176,7 +177,7 @@ func stringToDate(date_text string) time.Time {
 
 //Validates registration numbers: CPF and CNPJ
 func cpfCnpjValidation(cpf string, cnpjFrequente string, cnpjUltimaCompra string) bool {
-	if cpf == "NULL" || cnpjFrequente == "NULL" || cnpjUltimaCompra == "NULL" {
+	if cpf == NULO || cnpjFrequente == NULO || cnpjUltimaCompra == "NULL" {
 		return true
 	}
 
