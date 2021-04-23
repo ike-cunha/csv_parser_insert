@@ -31,7 +31,11 @@ func main() {
 //Receives an file with CSV structure
 func sendFile(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
-		w.Write([]byte("This route only accepts POST requests"))
+		_, writeErr := w.Write([]byte("This route only accepts POST requests"))
+		if writeErr != nil {
+			fmt.Println(writeErr)
+			return
+		}
 	}
 
 	r.ParseMultipartForm(10 << 20)

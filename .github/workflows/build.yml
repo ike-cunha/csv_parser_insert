@@ -7,3 +7,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Hello World!!!"
+      - run: go build
+      - run: echo "Compilado"
